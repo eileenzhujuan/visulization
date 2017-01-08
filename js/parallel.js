@@ -9,12 +9,7 @@ $(document).ready(function(){
     initial_svg();
 });
 
-
-
-
 var initial_svg = function() {
-
-
     d3.fisheye = {
         scale: function(scaleType) {
             return d3_fisheye_scale(scaleType(), 3, 0);
@@ -70,7 +65,6 @@ var initial_svg = function() {
         background,
         foreground;
 
-
     var svg = d3.select("#svg_parallel").append("svg:svg")
         .attr("width", w + m[1] + m[3])
         .attr("height", h + m[0] + m[2])
@@ -88,7 +82,8 @@ var initial_svg = function() {
             return ((d == "良好天数")  && (y[d] = d3.scale.linear()
                     .domain(d3.extent(parallel_data, function(p) { return +p[d]; }))
                     .range([h, 0])))
-                    ||((d == "平均AQI" || d == "2015_GDP" || d == "2015_popu")  && (y[d] = d3.scale.linear()
+                    ||((d == "AQI" || d == "PM2.5"|| d == "SO2"|| d == "CO"|| d == "GDP" || d == "人口")
+                && (y[d] = d3.scale.linear()
                     .domain(d3.extent(parallel_data, function(p) { return +p[d]; }))
                     .range([0, h])));
         }));
@@ -150,19 +145,11 @@ var initial_svg = function() {
             }
             else{
                 svg.on("mousemove", function () {
-
                 });
-
                 this.innerHTML = "启用鱼眼"
             }
-
         });
-
-
-
-
     });
-
 
     function d3_fisheye_scale(scale, d, a) {
 
@@ -199,9 +186,6 @@ var initial_svg = function() {
         fisheye.tickFormat = scale.tickFormat;
         return d3.rebind(fisheye, scale, "domain", "range");
     }
-
-
-
 
 // Handles a brush event, toggling the display of foreground lines.
     function brush() {

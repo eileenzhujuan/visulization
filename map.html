@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>中国地图</title>
+        <link rel="stylesheet" href="css/map.css" type="text/css" />
+    </head>
+    <body>
+    <div class="map_search">
+        开始日期<input id="day_begin" placeholder="输0-729之间的数字"/>
+        结束日期<input id="day_end" placeholder="输0-729之间的数字"/>
+        <button id="button_show" onclick="search()">查询</button>
+    </div>
+    <div id="svg_map"></div>
+    </body>
+
+    <script src="js/d3.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/map.js"></script>
+</html>
