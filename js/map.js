@@ -2,7 +2,8 @@
  * Created by Eileen on 2017/1/8.
  */
 $(document).ready(function(){
-    init()
+    init();
+    loadDateTime("day_begin", "day_end");
 });
 var b = d3.rgb(255,0,0);    //红色
 var a = d3.rgb(0,255,0);    //绿色
@@ -45,10 +46,10 @@ function init(){
             .attr("stroke","#000")
             .attr("stroke-width",1)
             .attr("fill", function(d,i){
-                return compute(d.properties.aqi[1]/500);
+                return compute(+d.properties.aqi[0]/500);
             })
             .attr("d", path )
-            .on("click",function(d,i) {   //点击时间
+            .on("click",function(d,i) {   //点击事件
                 console.log(d.properties.name);
             })
             .on("mouseover",function(d,i){   //鼠标悬浮
@@ -66,17 +67,67 @@ function init(){
 
 // 这是查询的接口，应该是查平均值显示，我这里只显示day_begin 的空气状况
 function search(){
-    var day_begin = $("#day_begin").val();
-    var day_end = $("#day_end").val();
-    console.log(day_begin + "," + day_end);
-    d3.selectAll("path").attr("fill", function(d,i){
-        // 这里有个问题，取均值时就卡死了
-        // var show_val = 0;
-        // for(var ii=day_begin; ii<=day_end;ii=ii+1){
-        //     show_val += d.properties.aqi[ii];
-        // }
-        // show_val = show_val/(day_end + 1 - day_begin);
-        // return compute(show_val/500);
-        return compute(d.properties.aqi[day_begin]/500)
-    })
+    var day_origin = new Date("2015-01-02");
+    var day_begin = new Date($("#day_begin").val());
+    var day_end = new Date($("#day_end").val());
+    var num_begin = (day_begin - day_origin)/(60*60*24*1000);
+    var num_end = (day_end - day_origin)/(60*60*24*1000) + 1;
+    console.log(num_begin + ", " + num_end);
+    if(num_begin<0 || num_end<0 || num_begin>730 || num_end>730 || num_end<=num_begin){
+        alert("日期选择错误，应为2015年01月02日至2016年12月31日之间的数据，且结束日期不得早于开始日期")
+    }
+    else {
+        d3.selectAll("path").attr("fill", function (d, i) {
+            var show_val = 0;
+            for (var ii = num_begin; ii < num_end; ii = ii + 1) {
+                show_val += +d.properties.aqi[ii];
+            }
+            show_val = show_val / (num_end - num_begin);
+            return compute(show_val / 500);
+        })
+    }
+}
+
+
+function loadDateTime(start, end){
+    var checkin = $('#'+start).datepicker({
+        format: 'yyyy-mm-dd',
+        onRender: function(date) {
+            if(date.valueOf() < (new Date('2015-01-01')).valueOf() || date.valueOf() > (new Date('2016-12-31')).valueOf()){
+                return 'disabled';
+            }
+            else{
+                return '' ;
+            }
+        },
+        parseFormat: function(format){
+            return {separator: separator, parts: parts};
+        },
+    }).on('changeDate', function(ev) {
+        if (ev.date.valueOf() > checkout.date.valueOf()){
+            var newDate = new Date(ev.date)
+            newDate.setDate(newDate.getDate());
+            checkout.setValue(newDate);
+        }
+        else{
+            checkout.setValue(checkout.date.valueOf());
+        }
+        checkin.hide();
+        $('#'+end)[0].focus();
+    }).data('datepicker');
+    var checkout = $('#'+end).datepicker({
+        format: 'yyyy-mm-dd',
+        // startDate:new Date(),
+        onRender: function(date) {
+            if(date.valueOf() < checkin.date.valueOf() || date.valueOf() > (new Date('2016-12-31')).valueOf()){
+                return 'disabled';
+            }
+            else{
+                return '' ;
+            }
+        },
+    }).on('changeDate', function(ev) {
+        checkout.hide();
+    }).data('datepicker');
+
 }
