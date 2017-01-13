@@ -5,15 +5,27 @@
 }
 #svg_map{
     position: absolute;
-    top: 10%;
-    left: 5%;
-    width:50%;
+    top: 10vh;
+    left: 5vw;
+    width:50vw;
     height:80vh;
 }
 #svg_heat{
     position: absolute;
-    top: 10%;
-    right: 5%;
-    width:35%;
+    top: 10vh;
+    left: 55vw;
+    width:35vw;
     height: 80vh;
+}
+.tooltip{
+    position: absolute;
+    width: 5vw;
+    height: auto;
+    font-family: simsun;
+    font-size: 14px;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    border-radius: 5px;
 }

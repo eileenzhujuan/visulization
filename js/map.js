@@ -1,6 +1,7 @@
 /**
  * Created by Eileen on 2017/1/8.
  */
+
 $(document).ready(function(){
     init();
     loadDateTime("day_begin", "day_end");
@@ -11,6 +12,13 @@ var a = d3.rgb(255,255,255);    //绿色
 var compute = d3.interpolate(a,b);
 var day_begin = new Date("2015-01-02");
 var day_end = new Date("2015-01-02");
+
+var city_selected=new Array();
+
+var tooltip = d3.select("body")
+    .append("div")
+    .attr("class","tooltip")
+    .style("opacity",0.0);
 
 function init(){
     var width  = $('#svg_map').width();
@@ -41,9 +49,6 @@ function init(){
     //     console.log(data.length)
     //     console.log(data[0].city_name)
     // });
-    //tianmin
-    var city_selected=new Array();
-    //tianmin
     d3.json("data/all_data.json", function(error, root) {
 
         if (error)
@@ -53,6 +58,9 @@ function init(){
             .data( root.features )
             .enter()
             .append("path")
+            .attr("id",function(d,i){
+                return d.properties.id+'path';
+            })
             .attr("stroke","#000")
             .attr("stroke-width",1)
             .attr("fill", function(d,i){
@@ -67,27 +75,56 @@ function init(){
                     city_selected.push(d.properties.id);
                     console.log(d.properties.name);
                     console.log("添加");
+                    d3.select(this)
+                        .attr("stroke","green")
+                        .attr("stroke-width",2);
                 }
                 else{
                     city_selected.splice(id_current,1);
                     console.log(d.properties.name);
                     console.log("删除");
+                    d3.select(this)
+                        .attr("stroke","#000")
+                        .attr("stroke-width",1);
                 }
                 console.log(city_selected);
                 Try.init(city_selected,day_begin,day_end);
                 //tianmin
             })
             .on("mouseover",function(d,i){   //鼠标悬浮
-                // console.log(d.properties.name);
-                // d3.select(this)
-                //     .attr("fill","yellow");
+                //console.log(d.properties.name);
+                var id_current=city_selected.indexOf(d.properties.id);
+                if (id_current==-1){
+                    d3.select(this)
+                        .attr("stroke","orange")
+                        .attr("stroke-width",2);
+                }
+                tooltip.style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY + 20) + "px")
+                    .style("opacity",1.0)
+                    .text(d.properties.name);
             })
             .on("mouseout",function(d,i){   //鼠标移开
-                // d3.select(this)
-                //     .attr("fill",compute(d.properties.aqi[1]/500));
+                var id_current=city_selected.indexOf(d.properties.id);
+                if (id_current==-1){
+                    d3.select(this)
+                        .attr("stroke","#000")
+                        .attr("stroke-width",1);
+                }
             });
 
     });
+}
+
+function map_update(id){
+    //console.log($('#'+id+'path'));
+    //var path1=$(id+'path');
+    //console.log(path1.id);
+    //d3.select("id","6209path").style("stroke","blue");
+    //console.log(id);
+    //d3.select($('#6209path')).style("stroke","blue");
+    //($('#'+id+'path')).attr("stroke","blue");
+    //($('#'+id+'path')).style("stroke-width",5);
 }
 
 // 这是查询的接口，应该是查平均值显示，我这里只显示day_begin 的空气状况
@@ -110,6 +147,7 @@ function search(){
             show_val = show_val / (num_end - num_begin);
             return compute(show_val / 500);
         })
+        Try.init(city_selected,day_begin,day_end);
     }
 }
 
