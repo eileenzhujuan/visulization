@@ -3,3 +3,17 @@
     margin-left: 40px;
     margin-right: auto;
 }
+#svg_map{
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width:50%;
+    height:80vh;
+}
+#svg_heat{
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width:35%;
+    height: 80vh;
+}

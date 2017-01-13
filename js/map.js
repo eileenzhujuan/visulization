@@ -6,13 +6,15 @@ $(document).ready(function(){
     loadDateTime("day_begin", "day_end");
 });
 var b = d3.rgb(255,0,0);    //红色
-var a = d3.rgb(0,255,0);    //绿色
+var a = d3.rgb(255,255,255);    //绿色
 
 var compute = d3.interpolate(a,b);
+var day_begin = new Date("2015-01-02");
+var day_end = new Date("2015-01-02");
 
 function init(){
-    var width  = 1000;
-    var height = 1000;
+    var width  = $('#svg_map').width();
+    var height = $('#svg_map').height();
 
     var svg = d3.select("#svg_map").append("svg")
         .attr("width", width)
@@ -20,12 +22,18 @@ function init(){
         .append("g")
         .attr("transform", "translate(0,0)");
 
-    var projection = d3.geo.mercator()
-        .center([107, 31])
-        .scale(850)
+    //tianmin 随窗口自适应高度
+    var center_x=107;
+    var center_y=31;
+    var scale=0.85*width;
+    if (height<width*0.85) scale=0.9*height;
+    var projection = d3.geoMercator()
+        .center([center_x,center_y])
+        .scale(scale)
         .translate([width/2, height/2]);
+    //tianmin
 
-    var path = d3.geo.path()
+    var path = d3.geoPath()
         .projection(projection);
 
     // d3.csv("data/2015_aqi_filter.csv", function(error,data){
@@ -33,7 +41,9 @@ function init(){
     //     console.log(data.length)
     //     console.log(data[0].city_name)
     // });
-
+    //tianmin
+    var city_selected=new Array();
+    //tianmin
     d3.json("data/all_data.json", function(error, root) {
 
         if (error)
@@ -50,7 +60,22 @@ function init(){
             })
             .attr("d", path )
             .on("click",function(d,i) {   //点击事件
-                console.log(d.properties.name);
+                //console.log(d.properties.name);
+                //tianmin
+                var id_current=city_selected.indexOf(d.properties.id);
+                if (id_current==-1){
+                    city_selected.push(d.properties.id);
+                    console.log(d.properties.name);
+                    console.log("添加");
+                }
+                else{
+                    city_selected.splice(id_current,1);
+                    console.log(d.properties.name);
+                    console.log("删除");
+                }
+                console.log(city_selected);
+                Try.init(city_selected,day_begin,day_end);
+                //tianmin
             })
             .on("mouseover",function(d,i){   //鼠标悬浮
                 // console.log(d.properties.name);
@@ -68,8 +93,8 @@ function init(){
 // 这是查询的接口，应该是查平均值显示，我这里只显示day_begin 的空气状况
 function search(){
     var day_origin = new Date("2015-01-02");
-    var day_begin = new Date($("#day_begin").val());
-    var day_end = new Date($("#day_end").val());
+    day_begin = new Date($("#day_begin").val());
+    day_end = new Date($("#day_end").val());
     var num_begin = (day_begin - day_origin)/(60*60*24*1000);
     var num_end = (day_end - day_origin)/(60*60*24*1000) + 1;
     console.log(num_begin + ", " + num_end);
