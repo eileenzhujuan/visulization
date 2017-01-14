@@ -35,14 +35,14 @@ svg {
 
 .background path {
     fill: none;
-    stroke: #83a09f;
+    stroke: #ae8247;
     stroke-opacity: .4;
     shape-rendering: crispEdges;
 }
 
 .foreground path {
     fill: none;
-    stroke: rgb(255, 0, 33);
+    stroke: rgb(255, 0, 0);
     stroke-opacity: .9;
 }
 

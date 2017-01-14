@@ -8,7 +8,7 @@ $(document).ready(function(){
     loadDateTime("day_begin", "day_end");
     init();
 });
-var b = d3.rgb(139,105,20);    //红色
+var b = d3.rgb(139,69,0);    //红色
 var a = d3.rgb(255,255,255);    //绿色
 
 var compute = d3.interpolate(a,b);
@@ -23,6 +23,18 @@ var tooltip = d3.select("body")
     .append("div")
     .attr("class","tooltip")
     .style("opacity",0.0);
+
+var tooltip3 = d3.select("body")
+    .append("div")
+    .attr("class","tooltip3")
+    .text("Time Line")
+    .style("opacity",1.0);
+
+var tooltip4 = d3.select("body")
+    .append("div")
+    .attr("class","tooltip4")
+    .text("Air Quality Ratio")
+    .style("opacity",1.0);
 
 //zoom
 
@@ -39,7 +51,7 @@ function init(){
     //tianmin 随窗口自适应高度
     var center_x=104;
     var center_y=37;
-    var scale=0.9*width;
+    var scale=0.95*width;
     if (height<width*0.85) scale=1.05*height;
     var projection = d3.geoMercator()
         .center([center_x,center_y])
@@ -65,7 +77,7 @@ function init(){
             .attr("stroke","#000")
             .attr("stroke-width",0.2)
             .attr("fill", function(d,i){
-                if (i%15==0) city_selected.push(d.properties.id);
+                if (i%20==0) city_selected.push(d.properties.id);
                 return compute(+d.properties.aqi[0]/500);
             })
             .attr("d", path )
@@ -117,7 +129,7 @@ function update_map(){
         $('#'+data_city_select[i].id+'path').css("stroke-width",0.1);
     }
     for (var i=0;i<city_selected.length;i++){
-        $('#'+city_selected[i]+'path').css("stroke","green");
+        $('#'+city_selected[i]+'path').css("stroke","#FF4500");
         $('#'+city_selected[i]+'path').css("stroke-width",2);
     }
 }
@@ -144,6 +156,12 @@ function search(){
         })
         Try.init(city_selected,day_begin,day_end);
     }
+}
+
+function clear_all(){
+    city_selected=[];
+    Try.init(city_selected,day_begin,day_end);
+    $("#select_city").val("").trigger("change");
 }
 
 

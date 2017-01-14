@@ -31,7 +31,7 @@ var Try = {
 
         //颜色插值
         var color_begin=d3.rgb(255,255,255);
-        var color_end=d3.rgb(255,0,0);
+        var color_end=d3.rgb(139,0,0);
         var color=d3.interpolate(color_begin,color_end);
         /*var linear=d3.scaleLinear()
             .domain([0,500])
@@ -122,14 +122,14 @@ var Try = {
                             .attr("y", sum_y)
                             .attr("width", sum1_width)
                             .attr("height", sum_height)
-                            .attr("fill", "green");
+                            .attr("fill", "#7FFF00");
                         g.append("rect")
                             .attr("id",sum2[jj]+'天')
                             .attr("x", sum_x+sum1_width)
                             .attr("y", sum_y)
                             .attr("width", sum2_width)
                             .attr("height", sum_height)
-                            .attr("fill", "yellow");
+                            .attr("fill", "#FFD700");
                         g.append("rect")
                             .attr("id",sum3[jj]+'天')
                             .attr("x", sum_x+sum1_width+sum2_width)
@@ -143,7 +143,7 @@ var Try = {
                             .attr("y", sum_y)
                             .attr("width", sum4_width)
                             .attr("height", sum_height)
-                            .attr("fill", "brown");
+                            .attr("fill", "#8B2500");
                         break;
                     }
                 }

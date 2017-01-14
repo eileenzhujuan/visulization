@@ -80,7 +80,7 @@ var initial_svg = function(name_para,name_button, para_index) {
     d3.csv("data/2015_36_parallel.csv", function(parallel_data) {
         // Extract the list of dimensions and create a scale for each.
         x.domain(dimensions = d3.keys(parallel_data[0]).filter(function(d) {
-            return ((d == para_index || d == "GDP" || d == "人口" || d == "第一产业增加值" || d == "第二产业增加值" || d == "第三产业增加值")
+            return ((d == para_index || d == "GDP" || d == "人口" || d == "第一产业" || d == "第二产业" || d == "第三产业")
             && (y[d] = d3.scale.linear()
                 .domain(d3.extent(parallel_data, function (p) {
                     return +p[d];
