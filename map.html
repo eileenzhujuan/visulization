@@ -5,6 +5,7 @@
         <title>中国空气质量地图</title>
         <link rel="stylesheet" href="bootstrap/3.3.0/css/bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="datepicker/css/datepicker.css" type="text/css" />
+        <link rel="stylesheet" href="select2-4.0.0/dist/css/select2.min.css" type="text/css" />
         <link rel="stylesheet" href="css/map.css" type="text/css" />
     </head>
     <body>
@@ -12,23 +13,37 @@
             <div class="bg bg-blur"></div>
             <div class="content-front">
                 <div>
-                    <div class="col-sm-12 form-group no-rawFeature map_search">
-                        <label class="label-v-center col-sm-2">开始时间: </label>
-                        <div class="col-sm-2">
-                            <input class="form-control date-picker-height" type="text" class="" value="2015-01-02" id="day_begin">
+                    <div class="col-md-12 form-group no-rawFeature map_search">
+                        <div class="col-md-8">
+                            <div class="col-md-12">
+                                <label class="label-v-center col-md-2">startTme: </label>
+                                <div class="col-md-3">
+                                    <input class="form-control date-picker-height" type="text" class="" value="2015-01-02" id="day_begin">
+                                </div>
+                                <label class="label-v-center col-md-2">endTime: </label>
+                                <div class="col-md-3">
+                                    <input class="form-control date-picker-height" type="text" value="2015-01-02" id="day_end">
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default" id="button_show" onclick="search()">search</button>
+                                </div>
+                            </div>
                         </div>
-                        <label class="label-v-center col-sm-2">结束时间: </label>
-                        <div class="col-sm-2">
-                            <input class="form-control date-picker-height" type="text" value="2015-01-02" id="day_end">
-                        </div>
-                        <div class="col-sm-1">
-                            <button class="btn btn-default" id="button_show" onclick="search()">查询</button>
-                        </div>
-                        <div class="col-sm-1">
-                            <button class="btn btn-default" id="button_sort" onclick="Try.sumSort()">排序</button>
-                        </div>
-                        <div class="col-sm-1">
+                        <div class="col-md-4">
                             <button class="btn btn-default" onclick="location.href='parallel.html'">查看关系图</button>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="label-v-center col-md-2">choose </label>
+                            <div class="col-md-6">
+                                <select id="select_city" class="select-city">
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-default" id="button_sort" onclick="Try.sumSort()">排序</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-default" id="button_clear" onclick="">清空</button>
+                            </div>
                         </div>
                     </div>
 
@@ -43,6 +58,7 @@
     <script src="js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="select2-4.0.0/dist/js/select2.min.js"></script>
     <script src="js/map.js"></script>
     <script src="js/Try.js"></script>
 </html>
