@@ -103,3 +103,7 @@ svg {
     vertical-align:middle;
     display:inline-block;
 }
+
+.top-my-margin{
+    margin-top: 20px;
+}
