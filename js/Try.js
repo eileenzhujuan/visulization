@@ -1,7 +1,17 @@
 var day_begin;
 var day_end;
-var norm=50;
-var sum=new Array();
+var norm1=50;
+var norm2=100;
+var norm3=150;
+var norm4=500;
+var sum1=new Array();
+var sum2=new Array();
+var sum3=new Array();
+var sum4=new Array();
+var tooltip2 = d3.select("body")
+    .append("div")
+    .attr("class","tooltip")
+    .style("opacity",0.0);
 var Try = {
 	init:function(city_selected,dayBegin,dayEnd){
         //画布
@@ -15,6 +25,9 @@ var Try = {
             .attr("id","svg_heat_")
             .attr("width",svg_width)
             .attr("height",svg_height);
+        svg.on("mouseout",function(){
+            tooltip2.style("opacity",0.0);
+        })
 
         //颜色插值
         var color_begin=d3.rgb(255,255,255);
@@ -33,14 +46,17 @@ var Try = {
         var cell_height=svg_height*0.1;
         if (city_selected.length>10) cell_height=svg_height/city_selected.length;
         var rect_width=cell_width*0.9;
-        var rect_height=cell_height*0.8;
+        var rect_height=cell_height*0.7;
         var cell_x=0;
         var cell_y=0;
         var text_x=0;
         var text_y=0;
-        var sum_x=svg_width*0.8;
+        var sum_x=svg_width*0.73;
         var sum_y=0;
-        var sum_width=0;
+        var sum1_width=0;
+        var sum2_width=0;
+        var sum3_width=0;
+        var sum4_width=0;
         var sum_height=rect_height;
         //console.log(city_selected,num_begin,num_end);
 
@@ -51,7 +67,7 @@ var Try = {
                     //var current_id = city_selected.indexOf(data[ii].id);
                     if (data[ii].id==city_selected[jj]) {
                         count+=1;
-                        text_y=cell_height*(count-1)+rect_height;
+                        text_y=cell_height*(count-1)+0.7*rect_height;
                         cell_y=cell_height*(count-1);
                         //console.log(ii,jj);
                         var g = svg.append("g")
@@ -63,27 +79,65 @@ var Try = {
                             .style("font-size", 10)
                             .text(data[ii].city_name);
                         //console.log(data[ii].city_name);
-                        sum[jj]=0;
+                        sum1[jj]=0;
+                        sum2[jj]=0;
+                        sum3[jj]=0;
+                        sum4[jj]=0;
                         for (var kk = num_begin; kk < num_end; kk++) {
                             cell_x = svg_width * 0.12 + (kk - num_begin) * cell_width;
                             g.append("rect")
+                                .attr("id",data[ii][kk+1])
                                 .attr("x", cell_x)
                                 .attr("y", cell_y)
                                 .attr("width", rect_width)
                                 .attr("height", rect_height)
                                 .attr("fill", color(data[ii][kk+1] / 500));
-                            if (data[ii][kk+1]<norm){
-                                sum[jj]+=1;
+                            if (data[ii][kk+1]<=norm1){
+                                sum1[jj]+=1;
+                            }
+                            else if (data[ii][kk+1]<=norm2){
+                                sum2[jj]+=1;
+                            }
+                            else if (data[ii][kk+1]<=norm3){
+                                sum3[jj]+=1;
+                            }
+                            else if (data[ii][kk+1]<=norm4){
+                                sum4[jj]+=1;
                             }
                         }
                         sum_y=cell_y;
-                        sum_width=svg_width*0.2*sum[jj]/day_sum;
+                        sum1_width=svg_width*0.26*sum1[jj]/day_sum;
+                        sum2_width=svg_width*0.26*sum2[jj]/day_sum;
+                        sum3_width=svg_width*0.26*sum3[jj]/day_sum;
+                        sum4_width=svg_width*0.26*sum4[jj]/day_sum;
                         g.append("rect")
+                            .attr("id",sum1[jj]+'天')
                             .attr("x", sum_x)
                             .attr("y", sum_y)
-                            .attr("width", sum_width)
+                            .attr("width", sum1_width)
                             .attr("height", sum_height)
-                            .attr("fill", "blue");
+                            .attr("fill", "green");
+                        g.append("rect")
+                            .attr("id",sum2[jj]+'天')
+                            .attr("x", sum_x+sum1_width)
+                            .attr("y", sum_y)
+                            .attr("width", sum2_width)
+                            .attr("height", sum_height)
+                            .attr("fill", "yellow");
+                        g.append("rect")
+                            .attr("id",sum3[jj]+'天')
+                            .attr("x", sum_x+sum1_width+sum2_width)
+                            .attr("y", sum_y)
+                            .attr("width", sum3_width)
+                            .attr("height", sum_height)
+                            .attr("fill", "orange");
+                        g.append("rect")
+                            .attr("id",sum2[jj]+'天')
+                            .attr("x", sum_x+sum1_width+sum2_width+sum3_width)
+                            .attr("y", sum_y)
+                            .attr("width", sum4_width)
+                            .attr("height", sum_height)
+                            .attr("fill", "brown");
                         break;
                     }
                 }
@@ -101,6 +155,20 @@ var Try = {
                 })
                 .on("mouseover",function(d,i){
 
+
+                })
+                .on("mouseout",function(d,i){
+
+                })
+            d3.selectAll("rect")
+                .on("click",function(d,i){
+
+                })
+                .on("mouseover",function(d,i){
+                    tooltip2.style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY + 20) + "px")
+                        .style("opacity",1.0)
+                        .text(this.id);
                 })
                 .on("mouseout",function(d,i){
 
@@ -110,14 +178,23 @@ var Try = {
         })
 	},
 	sumSort:function(){
-	    var len=sum.length;
+	    var len=sum1.length;
 	    var tmp;
 	    for (var i=0;i<len;i++){
             for (var j=i+1;j<len;j++){
-                if (sum[i]<sum[j]){
-                    tmp=sum[i];
-                    sum[i]=sum[j];
-                    sum[j]=tmp;
+                if (sum1[i]<sum1[j]){
+                    tmp=sum1[i];
+                    sum1[i]=sum1[j];
+                    sum1[j]=tmp;
+                    tmp=sum2[i];
+                    sum2[i]=sum2[j];
+                    sum2[j]=tmp;
+                    tmp=sum3[i];
+                    sum3[i]=sum3[j];
+                    sum3[j]=tmp;
+                    tmp=sum4[i];
+                    sum4[i]=sum4[j];
+                    sum4[j]=tmp;
                     tmp=city_selected[i];
                     city_selected[i]=city_selected[j];
                     city_selected[j]=tmp;

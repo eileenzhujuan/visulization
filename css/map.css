@@ -34,16 +34,16 @@
 #svg_map{
     position: absolute;
     top: 10vh;
-    left: 5vw;
-    width:50vw;
-    height:80vh;
+    left: 0;
+    width:55vw;
+    height:90vh;
 }
 #svg_heat{
     position: absolute;
     top: 10vh;
     left: 55vw;
-    width:35vw;
-    height: 80vh;
+    width:40vw;
+    height: 90vh;
 }
 .tooltip{
     position: absolute;

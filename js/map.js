@@ -29,12 +29,11 @@ function init(){
         .attr("height", height)
         .append("g")
         .attr("transform", "translate(0,0)");
-
     //tianmin 随窗口自适应高度
-    var center_x=107;
-    var center_y=31;
-    var scale=0.85*width;
-    if (height<width*0.85) scale=0.9*height;
+    var center_x=104;
+    var center_y=37;
+    var scale=0.9*width;
+    if (height<width*0.85) scale=1.05*height;
     var projection = d3.geoMercator()
         .center([center_x,center_y])
         .scale(scale)
@@ -53,7 +52,6 @@ function init(){
 
         if (error)
             return console.error(error);
-
         svg.selectAll("path")
             .data( root.features )
             .enter()
@@ -62,7 +60,7 @@ function init(){
                 return d.properties.id+'path';
             })
             .attr("stroke","#000")
-            .attr("stroke-width",1)
+            .attr("stroke-width",0.2)
             .attr("fill", function(d,i){
                 return compute(+d.properties.aqi[0]/500);
             })
@@ -85,7 +83,7 @@ function init(){
                     console.log("删除");
                     d3.select(this)
                         .attr("stroke","#000")
-                        .attr("stroke-width",1);
+                        .attr("stroke-width",0.1);
                 }
                 console.log(city_selected);
                 Try.init(city_selected,day_begin,day_end);
@@ -109,22 +107,17 @@ function init(){
                 if (id_current==-1){
                     d3.select(this)
                         .attr("stroke","#000")
-                        .attr("stroke-width",1);
+                        .attr("stroke-width",0.1);
                 }
+                tooltip.style("opacity",0.0);
             });
 
     });
 }
 
 function map_update(id){
-    //console.log($('#'+id+'path'));
-    //var path1=$(id+'path');
-    //console.log(path1.id);
-    //d3.select("id","6209path").style("stroke","blue");
-    //console.log(id);
-    //d3.select($('#6209path')).style("stroke","blue");
-    //($('#'+id+'path')).attr("stroke","blue");
-    //($('#'+id+'path')).style("stroke-width",5);
+    $('#'+id+'path').css("stroke","#000");
+    $('#'+id+'path').css("stroke-width",0.1);
 }
 
 // 这是查询的接口，应该是查平均值显示，我这里只显示day_begin 的空气状况
