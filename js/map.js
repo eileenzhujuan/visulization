@@ -3,8 +3,9 @@
  */
 
 $(document).ready(function(){
-    init();
+    init_select();
     loadDateTime("day_begin", "day_end");
+    init();
 });
 var b = d3.rgb(255,0,0);    //红色
 var a = d3.rgb(255,255,255);    //绿色
@@ -91,6 +92,7 @@ function init(){
                         .attr("stroke-width",0.1);
                 }
                 console.log(city_selected);
+                update_select();
                 Try.init(city_selected,day_begin,day_end);
                 //tianmin
             })
@@ -192,4 +194,30 @@ function loadDateTime(start, end){
         checkout.hide();
     }).data('datepicker');
 
+};
+
+function formatState (data_) {
+        return data_.text;
+};
+function init_select() {
+    d3.csv("data/city_relation.csv", function(data_city) {
+        var data_city_select = [];
+        for(var xx in data_city){
+            data_city_select.push({id:data_city[xx].id,text:data_city[xx].city_name});
+        }
+        $("#select_city").select2({
+            data: data_city_select,
+            placeholder: '请选择',
+            allowClear: false,
+            multiple: true,
+            templateSelection: formatState
+        });
+    });
+    $("#select_city").change(function () {
+       console.log($(this).val());
+    })
+}
+
+function update_select() {
+    $("#select_city").val(city_selected).trigger("change");
 }

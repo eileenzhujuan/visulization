@@ -33,17 +33,17 @@
 }
 #svg_map{
     position: absolute;
-    top: 10vh;
+    top: 20vh;
     left: 0;
     width:55vw;
-    height:90vh;
+    height:80vh;
 }
 #svg_heat{
     position: absolute;
-    top: 10vh;
+    top: 20vh;
     left: 55vw;
     width:40vw;
-    height: 85vh;
+    height: 80vh;
 }
 .tooltip{
     position: absolute;
@@ -64,4 +64,9 @@
 }
 .date-picker-height{
     height:36px;
+}
+
+.select-city{
+    width: 100%;
+    fill: #7b9096;
 }
