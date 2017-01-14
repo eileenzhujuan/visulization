@@ -220,7 +220,8 @@ function formatState (data_) {
          templateSelection: formatState
      });
      $("#select_index").change(function () {
-         // alert($(this).val());
+         // $("#button_air").innerHTML = "禁用鱼眼";
+         // $("#button_air").click();
          d3.select("svg").remove();
          initial_svg("#svg_parallel_air","#button_air", $(this).val());
      })
