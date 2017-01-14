@@ -209,7 +209,9 @@ function loadDateTime(start, end){
 };
 
 function formatState (data_) {
-        return data_.text;
+    var id_form=city_selected.indexOf(data_.id);
+    if (id_form>=10) return "..";
+    return data_.text;
 };
 function init_select() {
     d3.csv("data/city_relation.csv", function(data_city) {

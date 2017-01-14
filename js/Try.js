@@ -67,7 +67,7 @@ var Try = {
                     //var current_id = city_selected.indexOf(data[ii].id);
                     if (data[ii].id==city_selected[jj]) {
                         count+=1;
-                        text_y=cell_height*(count-1)+0.7*rect_height;
+                        text_y=cell_height*(count-1)+0.8*rect_height;
                         cell_y=cell_height*(count-1);
                         //console.log(ii,jj);
                         var g = svg.append("g")
