@@ -6,11 +6,11 @@ var x = d3.scale.ordinal().rangePoints([0, w], 1),
     y = {};
 
 $(document).ready(function(){
-    initial_svg("#svg_parallel_air","#button_air", 'AQI');
+    initial_svg("#svg_parallel_air", 'AQI');
     init_select();
 });
 
-var initial_svg = function(name_para,name_button, para_index) {
+var initial_svg = function(name_para, para_index) {
     d3.fisheye = {
         scale: function(scaleType) {
             return d3_fisheye_scale(scaleType(), 3, 0);
@@ -127,8 +127,11 @@ var initial_svg = function(name_para,name_button, para_index) {
             .selectAll("rect")
             .attr("x", -8)
             .attr("width", 16);
-
-        $(name_button).click(function() {
+        d3.select("#action_tab").append("div")
+            .attr("class","btn-out col-md-3")
+            .attr("id","button_air")
+            .html("启用鱼眼");
+        $("#button_air").click(function() {
 
             console.log(this.innerHTML);
             if(this.innerHTML == "启用鱼眼") {
@@ -220,10 +223,9 @@ function formatState (data_) {
          templateSelection: formatState
      });
      $("#select_index").change(function () {
-         // $("#button_air").innerHTML = "禁用鱼眼";
-         // $("#button_air").click();
          d3.select("svg").remove();
-         initial_svg("#svg_parallel_air","#button_air", $(this).val());
+         d3.select("#button_air").remove();
+         initial_svg("#svg_parallel_air", $(this).val());
      })
  };
 
