@@ -7,14 +7,16 @@ $(document).ready(function(){
     loadDateTime("day_begin", "day_end");
     init();
 });
-var b = d3.rgb(255,0,0);    //红色
+var b = d3.rgb(139,105,20);    //红色
 var a = d3.rgb(255,255,255);    //绿色
 
 var compute = d3.interpolate(a,b);
-var day_begin = new Date("2015-01-02");
-var day_end = new Date("2015-01-02");
+var day_begin = new Date("2016-01-01");
+var day_end = new Date("2016-01-31");
 
 var city_selected=new Array();
+
+var data_city_select = [];
 
 var tooltip = d3.select("body")
     .append("div")
@@ -47,11 +49,6 @@ function init(){
     var path = d3.geoPath()
         .projection(projection);
 
-    // d3.csv("data/2015_aqi_filter.csv", function(error,data){
-    //     data_2015 = data
-    //     console.log(data.length)
-    //     console.log(data[0].city_name)
-    // });
     d3.json("data/all_data.json", function(error, root) {
 
         if (error)
@@ -67,34 +64,23 @@ function init(){
             .attr("stroke","#000")
             .attr("stroke-width",0.2)
             .attr("fill", function(d,i){
-                city_selected.push(d.properties.id);
+                if (i%15==0) city_selected.push(d.properties.id);
                 return compute(+d.properties.aqi[0]/500);
             })
             .attr("d", path )
             .on("click",function(d,i) {   //点击事件
-                //console.log(d.properties.name);
-                //tianmin
                 var id_current=city_selected.indexOf(d.properties.id);
                 if (id_current==-1){
                     city_selected.push(d.properties.id);
-                    console.log(d.properties.name);
-                    console.log("添加");
-                    d3.select(this)
-                        .attr("stroke","green")
-                        .attr("stroke-width",2);
                 }
                 else{
                     city_selected.splice(id_current,1);
-                    console.log(d.properties.name);
-                    console.log("删除");
-                    d3.select(this)
-                        .attr("stroke","#000")
-                        .attr("stroke-width",0.1);
                 }
-                console.log(city_selected);
+                //console.log(city_selected);
+                console.log("update_select");
                 update_select();
+                console.log("Try.init");
                 Try.init(city_selected,day_begin,day_end);
-                //tianmin
             })
             .on("mouseover",function(d,i){   //鼠标悬浮
                 //console.log(d.properties.name);
@@ -119,13 +105,20 @@ function init(){
                 tooltip.style("opacity",0.0);
             });
         search();
-
+        update_select();
+        update_map();
     });
 }
-
-function map_update(id){
-    $('#'+id+'path').css("stroke","#000");
-    $('#'+id+'path').css("stroke-width",0.1);
+function update_map(){
+    console.log("染色"+city_selected);
+    for(var i in data_city_select){
+        $('#'+data_city_select[i].id+'path').css("stroke","#000");
+        $('#'+data_city_select[i].id+'path').css("stroke-width",0.1);
+    }
+    for (var i=0;i<city_selected.length;i++){
+        $('#'+city_selected[i]+'path').css("stroke","green");
+        $('#'+city_selected[i]+'path').css("stroke-width",2);
+    }
 }
 
 // 这是查询的接口，应该是查平均值显示，我这里只显示day_begin 的空气状况
@@ -201,7 +194,6 @@ function formatState (data_) {
 };
 function init_select() {
     d3.csv("data/city_relation.csv", function(data_city) {
-        var data_city_select = [];
         for(var xx in data_city){
             data_city_select.push({id:data_city[xx].id,text:data_city[xx].city_name});
         }
@@ -214,10 +206,13 @@ function init_select() {
         });
     });
     $("#select_city").change(function () {
-       console.log($(this).val());
+        city_selected=$(this).val();
+        update_map($(this).val());
+        Try.init(city_selected,day_begin,day_end);
     })
 }
 
 function update_select() {
     $("#select_city").val(city_selected).trigger("change");
+    console.log("update_select完成");
 }

@@ -33,17 +33,17 @@
 }
 #svg_map{
     position: absolute;
-    top: 20vh;
+    top: 15vh;
     left: 0;
     width:55vw;
-    height:80vh;
+    bottom:0vh;
 }
 #svg_heat{
     position: absolute;
-    top: 20vh;
+    top: 15vh;
     left: 55vw;
     width:40vw;
-    height: 80vh;
+    bottom: 5vh;
 }
 .tooltip{
     position: absolute;

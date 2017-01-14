@@ -156,7 +156,8 @@ var Try = {
                         //console.log("out");
                         city_selected.splice(current_id,1);
                         Try.init(city_selected,day_begin,day_end);
-                        map_update(this.id);
+                        update_map();
+                        update_select();
                     }
                 })
                 .on("mouseover",function(d,i){
