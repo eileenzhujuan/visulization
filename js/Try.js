@@ -25,6 +25,9 @@ var Try = {
             .attr("id","svg_heat_")
             .attr("width",svg_width)
             .attr("height",svg_height);
+        svg.on("mouseout",function(){
+            tooltip2.style("opacity",0.0);
+        })
 
         //颜色插值
         var color_begin=d3.rgb(255,255,255);

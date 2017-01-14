@@ -29,7 +29,6 @@ function init(){
         .attr("height", height)
         .append("g")
         .attr("transform", "translate(0,0)");
-
     //tianmin 随窗口自适应高度
     var center_x=104;
     var center_y=37;
@@ -53,7 +52,6 @@ function init(){
 
         if (error)
             return console.error(error);
-
         svg.selectAll("path")
             .data( root.features )
             .enter()
@@ -111,6 +109,7 @@ function init(){
                         .attr("stroke","#000")
                         .attr("stroke-width",0.1);
                 }
+                tooltip.style("opacity",0.0);
             });
 
     });
