@@ -3,6 +3,7 @@
  */
 
 $(document).ready(function(){
+    $("#welcome").modal("show");
     init_select();
     loadDateTime("day_begin", "day_end");
     init();

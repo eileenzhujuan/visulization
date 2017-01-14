@@ -13,37 +13,36 @@
             <div class="bg bg-blur"></div>
             <div class="content-front">
                 <div>
+                    <div class="div-title">全国各市空气质量图</div>
                     <div class="col-md-12 form-group no-rawFeature map_search">
-                        <div class="col-md-8">
-                            <div class="col-md-12">
-                                <label class="label-v-center col-md-2">startTme: </label>
-                                <div class="col-md-3">
-                                    <input class="form-control date-picker-height" type="text" class="" value="2016-01-01" id="day_begin">
-                                </div>
-                                <label class="label-v-center col-md-2">endTime: </label>
-                                <div class="col-md-3">
-                                    <input class="form-control date-picker-height" type="text" value="2016-01-31" id="day_end">
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-default" id="button_show" onclick="search()">search</button>
-                                </div>
-                            </div>
+
+                        <div class="col-md-2">
+                        <label class="label-v-center">startTme: </label></div>
+                        <div class="col-md-2">
+                            <input class="form-control date-picker-height" type="text" class="" value="2016-01-01" id="day_begin">
                         </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-default" onclick="location.href='parallel.html'">查看关系图</button>
+                        <label class="label-v-center col-md-2">endTime: </label>
+                        <div class="col-md-2">
+                            <input class="form-control date-picker-height" type="text" value="2016-01-31" id="day_end">
                         </div>
-                        <div class="col-md-12">
-                            <label class="label-v-center col-md-2">choose </label>
-                            <div class="col-md-6">
-                                <select id="select_city" class="select-city">
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-default" id="button_sort" onclick="Try.sumSort()">排序</button>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-default" id="button_clear" onclick="">清空</button>
-                            </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_show" onclick="search()">Search</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default" onclick="location.href='parallel.html'">JUMP</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="label-v-center col-md-2">choose </label>
+                        <div class="col-md-6">
+                            <select id="select_city" class="select-city">
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_sort" onclick="Try.sumSort()">Sort</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_clear" onclick="clear_all()">Clear</button>
                         </div>
                     </div>
 
@@ -53,6 +52,35 @@
             </div>
         </div>
     </body>
+
+
+    <div id="welcome" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">欢迎来到可视化的世界</h4>
+                </div>
+                <div class="modal-body">
+                    <p>这里有你想看的全国城市空气质量地图&hellip;</p>
+                    <p>想知道你的城市在过去两年的空气质量吗？</p>
+                    <p>想知道你的城市空气质量在全国的排名吗？</p>
+                    <p>想知道你喜欢的人≧△≦所在的城市空气质量怎么样吗？ </p>
+                    <p>想知道空气质量和GDP、人口、三大产业增值有着怎样的对应关系吗？</p>
+                    <br>
+                    <p>&hellip;&hellip;&hellip;哈哈，你来对地方了(ー∀ー)&hellip;&hellip;&hellip;</p>
+                    <br>
+                    <p>即将在你面前展示的是空气质量地图，你可以选择自己想看的城市，可以选择你过去两年任意一段时间，可以对选择的城市进行排名</p>
+                    <p>你也可以跳转视图，按下“查看关系”按钮来到《全国空气质量与GDP、人口关系图》，选择指标，划定想看的分段，拖动，放大，自己探索</p>
+                    <br>
+                    <p>(●Ｕ_Ｕ●) 祝你玩得愉快！</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">进入</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/d3.js"></script>
     <script src="js/jquery-1.11.0.min.js"></script>

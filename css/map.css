@@ -1,7 +1,7 @@
 
 .bg-blur {
     float: left;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: center center;
     background-size: cover;
     -webkit-filter: blur(15px);
@@ -28,22 +28,35 @@
 }
 .map_search{
     margin-top: 20px;
-    margin-left: 40px;
     margin-right: auto;
 }
+
+.div-title {
+    font-size: 28px;
+    background: #EEE;
+    margin-top: 30px;
+    text-shadow: 2px -2px #060406, 1px -1px white;
+    text-align: center;
+    font-weight: bolder;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text
+}
+
 #svg_map{
     position: absolute;
-    top: 15vh;
-    left: 0;
-    width:55vw;
+    top: 25vh;
+    left: 0vw;
+    width:50vw;
+    height:70vh;
     bottom:0vh;
 }
 #svg_heat{
     position: absolute;
-    top: 15vh;
-    left: 55vw;
+    top: 35vh;
+    left: 50vw;
     width:40vw;
-    bottom: 5vh;
+    height:55vh;
+    bottom:5vh;
 }
 .tooltip{
     position: absolute;
@@ -51,6 +64,34 @@
     height: auto;
     font-family: simsun;
     font-size: 14px;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #6d8b90;
+    border-radius: 5px;
+}
+.tooltip3{
+    position: absolute;
+    width: 6vw;
+    height: 3vh;
+    top:30vh;
+    left:64vw;
+    font-family: simsun;
+    font-size: 15px;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    border-radius: 5px;
+}
+.tooltip4{
+    position: absolute;
+    width: 10vw;
+    height: 3vh;
+    top:30vh;
+    left:79.8vw;
+    font-family: simsun;
+    font-size: 15px;
     text-align: center;
     border-style: solid;
     border-width: 1px;
