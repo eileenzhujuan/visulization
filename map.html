@@ -13,37 +13,35 @@
             <div class="bg bg-blur"></div>
             <div class="content-front">
                 <div>
+                    <div class="div-title">全国各市空气质量图</div>
                     <div class="col-md-12 form-group no-rawFeature map_search">
-                        <div class="col-md-8">
-                            <div class="col-md-12">
-                                <label class="label-v-center col-md-2">startTme: </label>
-                                <div class="col-md-3">
-                                    <input class="form-control date-picker-height" type="text" class="" value="2015-01-02" id="day_begin">
-                                </div>
-                                <label class="label-v-center col-md-2">endTime: </label>
-                                <div class="col-md-3">
-                                    <input class="form-control date-picker-height" type="text" value="2015-01-02" id="day_end">
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-default" id="button_show" onclick="search()">search</button>
-                                </div>
-                            </div>
+                        <div class="col-md-2">
+                        <label class="label-v-center">startTme: </label></div>
+                        <div class="col-md-2">
+                            <input class="form-control date-picker-height" type="text" class="" value="2015-01-02" id="day_begin">
                         </div>
-                        <div class="col-md-4">
+                        <label class="label-v-center col-md-2">endTime: </label>
+                        <div class="col-md-2">
+                            <input class="form-control date-picker-height" type="text" value="2015-01-02" id="day_end">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_show" onclick="search()">search</button>
+                        </div>
+                        <div class="col-md-2">
                             <button class="btn btn-default" onclick="location.href='parallel.html'">查看关系图</button>
                         </div>
-                        <div class="col-md-12">
-                            <label class="label-v-center col-md-2">choose </label>
-                            <div class="col-md-6">
-                                <select id="select_city" class="select-city">
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-default" id="button_sort" onclick="Try.sumSort()">排序</button>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-default" id="button_clear" onclick="">清空</button>
-                            </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="label-v-center col-md-2">choose </label>
+                        <div class="col-md-6">
+                            <select id="select_city" class="select-city">
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_sort" onclick="Try.sumSort()">排序</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default" id="button_clear" onclick="">清空</button>
                         </div>
                     </div>
 
@@ -53,6 +51,24 @@
             </div>
         </div>
     </body>
+
+
+    <div id="welcome" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">欢迎</h4>
+                </div>
+                <div class="modal-body">
+                    <p>这里有你想看的全国城市空气质量地图&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">进入</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <script src="js/d3.js"></script>
     <script src="js/jquery-1.11.0.min.js"></script>

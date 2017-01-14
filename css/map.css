@@ -28,22 +28,33 @@
 }
 .map_search{
     margin-top: 20px;
-    margin-left: 40px;
     margin-right: auto;
 }
+
+.div-title {
+    font-size: 28px;
+    background: #EEE;
+    margin-top: 30px;
+    text-shadow: 2px -2px #060406, 1px -1px white;
+    text-align: center;
+    font-weight: bolder;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text
+}
+
 #svg_map{
     position: absolute;
-    top: 20vh;
+    top: 30vh;
     left: 0;
     width:55vw;
-    height:80vh;
+    height:70vh;
 }
 #svg_heat{
     position: absolute;
-    top: 20vh;
+    top: 30vh;
     left: 55vw;
     width:40vw;
-    height: 80vh;
+    height: 70vh;
 }
 .tooltip{
     position: absolute;
