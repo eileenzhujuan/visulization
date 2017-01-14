@@ -8,26 +8,35 @@
         <link rel="stylesheet" href="css/map.css" type="text/css" />
     </head>
     <body>
+        <div>
+            <div class="bg bg-blur"></div>
+            <div class="content-front">
+                <div>
+                    <div class="col-sm-12 form-group no-rawFeature map_search">
+                        <label class="label-v-center col-sm-2">开始时间: </label>
+                        <div class="col-sm-2">
+                            <input class="form-control date-picker-height" type="text" class="" value="2015-01-02" id="day_begin">
+                        </div>
+                        <label class="label-v-center col-sm-2">结束时间: </label>
+                        <div class="col-sm-2">
+                            <input class="form-control date-picker-height" type="text" value="2015-01-02" id="day_end">
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-default" id="button_show" onclick="search()">查询</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-default" id="button_sort" onclick="Try.sumSort()">排序</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-default" onclick="location.href='parallel.html'">查看关系图</button>
+                        </div>
+                    </div>
 
-    <div class="col-sm-12 form-group no-rawFeature map_search">
-        <label class="control-label col-sm-2">开始时间: </label>
-        <div class="col-sm-3">
-            <input class="form-control" type="text" class="" value="2015-01-02" style="height:36px;" id="day_begin">
+                    <div id="svg_map"></div>
+                    <div id="svg_heat"></div>
+                </div>
+            </div>
         </div>
-        <label class="control-label col-sm-2">结束时间: </label>
-        <div class="col-sm-3">
-            <input class="form-control" type="text" value="2015-01-02" style="height:36px;" id="day_end">
-        </div>
-        <div class="col-sm-2">
-            <button class="btn btn-default" id="button_show" onclick="search()">查询</button>
-        </div>
-        <div class="col-sm-2">
-            <button class="btn btn-default" id="button_sort" onclick="Try.sumSort()">排序</button>
-        </div>
-    </div>
-
-    <div id="svg_map"></div>
-    <div id="svg_heat"></div>
     </body>
 
     <script src="js/d3.js"></script>

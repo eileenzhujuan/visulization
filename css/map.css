@@ -1,3 +1,31 @@
+
+.bg-blur {
+    float: left;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+}
+.content-front {
+    position:absolute;
+    left: 10px;
+    right: 10px;
+    height:700px;
+    /*width: 1060px;*/
+    width: 100%;
+    text-align: center;
+}
+.bg {
+    background: url('../image/bg3.jpg');
+    height:700px;
+    /*width: 1060px;*/
+    width: 100%;
+    text-align: center;
+}
 .map_search{
     margin-top: 20px;
     margin-left: 40px;
@@ -6,16 +34,16 @@
 #svg_map{
     position: absolute;
     top: 10vh;
-    left: 5vw;
-    width:50vw;
-    height:80vh;
+    left: 0;
+    width:55vw;
+    height:90vh;
 }
 #svg_heat{
     position: absolute;
     top: 10vh;
     left: 55vw;
-    width:35vw;
-    height: 80vh;
+    width:40vw;
+    height: 90vh;
 }
 .tooltip{
     position: absolute;
@@ -28,4 +56,12 @@
     border-width: 1px;
     background-color: white;
     border-radius: 5px;
+}
+.label-v-center{
+    line-height:36px;
+    vertical-align:middle;
+    display:inline-block;
+}
+.date-picker-height{
+    height:36px;
 }
