@@ -20,10 +20,13 @@ var tooltip = d3.select("body")
     .attr("class","tooltip")
     .style("opacity",0.0);
 
+//zoom
+
+//zoom
+
 function init(){
     var width  = $('#svg_map').width();
     var height = $('#svg_map').height();
-
     var svg = d3.select("#svg_map").append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -52,6 +55,7 @@ function init(){
 
         if (error)
             return console.error(error);
+
         svg.selectAll("path")
             .data( root.features )
             .enter()
@@ -62,6 +66,7 @@ function init(){
             .attr("stroke","#000")
             .attr("stroke-width",0.2)
             .attr("fill", function(d,i){
+                city_selected.push(d.properties.id);
                 return compute(+d.properties.aqi[0]/500);
             })
             .attr("d", path )
@@ -111,6 +116,7 @@ function init(){
                 }
                 tooltip.style("opacity",0.0);
             });
+        search();
 
     });
 }

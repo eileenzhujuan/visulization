@@ -72,19 +72,25 @@ var Try = {
                         //console.log(ii,jj);
                         var g = svg.append("g")
                             .attr("id", data[ii].id);
-                        g.append("text")
-                            .attr("x", text_x)
-                            .attr("y", text_y)
-                            .attr("fill", "black")
-                            .style("font-size", 10)
-                            .text(data[ii].city_name);
-                        //console.log(data[ii].city_name);
+                        if (city_selected.length<26){
+                            g.append("text")
+                                .attr("x", text_x)
+                                .attr("y", text_y)
+                                .attr("fill", "black")
+                                .style("font-size", 10)
+                                .text(data[ii].city_name);
+                        }
+
                         sum1[jj]=0;
                         sum2[jj]=0;
                         sum3[jj]=0;
                         sum4[jj]=0;
                         for (var kk = num_begin; kk < num_end; kk++) {
                             cell_x = svg_width * 0.12 + (kk - num_begin) * cell_width;
+                            if (city_selected.length>25){
+                                cell_width=svg_width*0.7/day_sum;
+                                cell_x = (kk - num_begin) * cell_width;
+                            }
                             g.append("rect")
                                 .attr("id",data[ii][kk+1])
                                 .attr("x", cell_x)
