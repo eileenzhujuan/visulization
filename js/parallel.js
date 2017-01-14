@@ -6,10 +6,11 @@ var x = d3.scale.ordinal().rangePoints([0, w], 1),
     y = {};
 
 $(document).ready(function(){
-    initial_svg();
+    initial_svg("#svg_parallel_air","#button_air", 'AQI');
+    init_select();
 });
 
-var initial_svg = function() {
+var initial_svg = function(name_para,name_button, para_index) {
     d3.fisheye = {
         scale: function(scaleType) {
             return d3_fisheye_scale(scaleType(), 3, 0);
@@ -65,7 +66,7 @@ var initial_svg = function() {
         background,
         foreground;
 
-    var svg = d3.select("#svg_parallel").append("svg:svg")
+    var svg = d3.select(name_para).append("svg:svg")
         .attr("width", w + m[1] + m[3])
         .attr("height", h + m[0] + m[2])
         .append("svg:g")
@@ -79,13 +80,12 @@ var initial_svg = function() {
     d3.csv("data/2015_36_parallel.csv", function(parallel_data) {
         // Extract the list of dimensions and create a scale for each.
         x.domain(dimensions = d3.keys(parallel_data[0]).filter(function(d) {
-            return ((d == "良好天数")  && (y[d] = d3.scale.linear()
-                    .domain(d3.extent(parallel_data, function(p) { return +p[d]; }))
-                    .range([h, 0])))
-                    ||((d == "AQI" || d == "PM2.5"|| d == "SO2"|| d == "CO"|| d == "GDP" || d == "人口")
-                && (y[d] = d3.scale.linear()
-                    .domain(d3.extent(parallel_data, function(p) { return +p[d]; }))
-                    .range([0, h])));
+            return ((d == para_index || d == "GDP" || d == "人口" || d == "第一产业增加值" || d == "第二产业增加值" || d == "第三产业增加值")
+            && (y[d] = d3.scale.linear()
+                .domain(d3.extent(parallel_data, function (p) {
+                    return +p[d];
+                }))
+                .range([0, h])));
         }));
 
         // Add grey background lines for context.
@@ -128,7 +128,7 @@ var initial_svg = function() {
             .attr("x", -8)
             .attr("width", 16);
 
-        $("#button_text").click(function() {
+        $(name_button).click(function() {
 
             console.log(this.innerHTML);
             if(this.innerHTML == "启用鱼眼") {
@@ -197,7 +197,34 @@ var initial_svg = function() {
             }) ? null : "none";
         });
     }
-}
+};
+
+
+
+function formatState (data_) {
+    if (!data_.id) { return data_.text; }
+    return data_.id;
+};
+ function init_select() {
+     var data_index = [
+         {id: "AQI", text: "空气质量指数"},
+         {id: "SO2", text: "二氧化硫"},
+         {id: "PM2.5", text: "PM2.5"},
+         {id: "CO", text: "一氧化碳"},
+         {id: "良好天数", text: "良好天数"}];
+     $("#select_index").select2({
+         data: data_index,
+         placeholder: '请选择',
+         allowClear: true,
+         multiple: false,
+         templateSelection: formatState
+     });
+     $("#select_index").change(function () {
+         // alert($(this).val());
+         d3.select("svg").remove();
+         initial_svg("#svg_parallel_air","#button_air", $(this).val());
+     })
+ };
 
 
 

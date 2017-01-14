@@ -93,3 +93,7 @@ svg {
     float: right;
     display:inline;
 }
+.select-parallel{
+    width: 100%;
+    fill: #7b9096;
+}

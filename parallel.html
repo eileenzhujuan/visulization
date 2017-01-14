@@ -3,19 +3,27 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>空气质量关系示意图</title>
+      <link rel="stylesheet" href="bootstrap/3.3.0/css/bootstrap.min.css" type="text/css" />
+      <link rel="stylesheet" href="select2-4.0.0/dist/css/select2.min.css" type="text/css" />
       <link rel="stylesheet" href="css/parallel.css" type="text/css" />
   </head>
   <body>
       <div>
           <div class="bg bg-blur"></div>
-          <div class="content-front">
-              <div>
-                <div class="div-title">全国主要城市空气质量、人口、GDP示意图</div>
-                <div>
-                    <div class="btn-out"  onclick="location.href='map.html'">返回</div>
-                    <div id="button_text" class="btn-out">启用鱼眼</div>
-                </div>
-                <div id="svg_parallel"></div>
+              <div class="content-front">
+                  <div>
+                    <div class="div-title">全国主要城市空气质量、人口、GDP示意图</div>
+                        <div class="demo-line col-sm-12">
+                            <label class="label-center col-sm-2">选择指标: </label>
+                            <div class="col-sm-4">
+                                <select id="select_index" class="select-parallel">
+
+                                </select>
+                            </div>
+                            <div class="col-sm-2 btn-out"  onclick="location.href='map.html'">返回</div>
+                            <div id="col-sm-2 button_air" class="btn-out">启用鱼眼</div>
+                        </div>
+                    <div id="svg_parallel_air"></div>
               </div>
           </div>
       </div>
@@ -23,5 +31,7 @@
 
   <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="js/d3.v3.js"></script>
+  <script type="text/javascript" src="bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="select2-4.0.0/dist/js/select2.min.js"></script>
   <script type="text/javascript" src="js/parallel.js"></script>
 </html>
